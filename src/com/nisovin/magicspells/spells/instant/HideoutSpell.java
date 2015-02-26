@@ -40,7 +40,6 @@ public class HideoutSpell extends InstantSpell {
             try {
                 String line = reader.readLine();
                 if(line!="") {
-                    MagicSpells.error(line);
                     String[] coords = line.split(",");
                     World world = MagicSpells.plugin.getServer().getWorld(coords[0]);
                     Double x = Double.parseDouble(coords[1]);
@@ -55,7 +54,6 @@ public class HideoutSpell extends InstantSpell {
                 else saveHideout();
             } catch (Exception e) {
                 MagicSpells.error("Failed to load hideout for "+internalName+" spell.");
-                MagicSpells.error(e.toString());
             }
         }
         catch (Exception e) {
@@ -74,7 +72,6 @@ public class HideoutSpell extends InstantSpell {
         }
         catch (Exception e) {
             MagicSpells.error("Unable to save hideout for "+internalName+" spell.");
-            MagicSpells.error(e.toString());
         }
     }
 

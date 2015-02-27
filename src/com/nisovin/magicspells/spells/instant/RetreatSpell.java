@@ -40,8 +40,9 @@ public class RetreatSpell extends InstantSpell {
                 playSpellEffects(EffectPosition.CASTER,from);
                 playSpellEffects(EffectPosition.TARGET,destination);
             }
+            return PostCastAction.HANDLE_NORMALLY;
         }
-        return PostCastAction.HANDLE_NORMALLY;
+        return PostCastAction.ALREADY_HANDLED;
     }
 
     private MagicLocation getHideout() {

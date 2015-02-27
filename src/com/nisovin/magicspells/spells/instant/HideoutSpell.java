@@ -1,6 +1,7 @@
 package com.nisovin.magicspells.spells.instant;
 
 import com.nisovin.magicspells.MagicSpells;
+import com.nisovin.magicspells.spelleffects.EffectPosition;
 import com.nisovin.magicspells.spells.InstantSpell;
 import com.nisovin.magicspells.util.MagicConfig;
 import com.nisovin.magicspells.util.MagicLocation;
@@ -26,8 +27,9 @@ public class HideoutSpell extends InstantSpell {
             loc.setPitch(0);
             hideout = new MagicLocation(loc);
             saveHideout();
+            playSpellEffects(EffectPosition.CASTER,player);
         }
-        return PostCastAction.ALREADY_HANDLED;
+        return PostCastAction.HANDLE_NORMALLY;
     }
 
     public MagicLocation getHideout() {

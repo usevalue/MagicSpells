@@ -68,7 +68,7 @@ public class SummonSpell extends TargetedSpell implements TargetedEntitySpell, T
 				if (block != null && (block.getType() == Material.WALL_SIGN || block.getType() == Material.SIGN_POST)) {
 					Sign sign = (Sign)block.getState();
 					targetName = sign.getLine(0);
-					landLoc = block.getLocation().add(.5, .25, .5);
+					landLoc = block.getLocation().add(.5, 1, .5);
 				}
 			}
 			

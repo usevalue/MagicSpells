@@ -276,7 +276,7 @@ public abstract class Spell implements Comparable<Spell>, Listener {
 		// targeting
 		this.minRange = config.getInt(section + "." + spellName + ".min-range", 0);
 		this.range = config.getInt(section + "." + spellName + ".range", 20);
-		this.spellPowerAffectsRange = config.getBoolean(section + "." + spellName + ".spell-power-affects-range", false);
+		this.spellPowerAffectsRange = config.getBoolean(section + "." + spellName + ".spell-power-affects-range", true);
 		this.obeyLos = config.getBoolean(section + "." + spellName + ".obey-los", true);
 		if (config.contains(section + "." + spellName + ".can-target")) {
 			if (config.isList(section + "." + spellName + ".can-target")) {

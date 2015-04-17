@@ -1,7 +1,9 @@
 package com.nisovin.magicspells.spells.buff;
 
-import java.util.HashMap;
-
+import com.nisovin.magicspells.MagicSpells;
+import com.nisovin.magicspells.events.SpellCastEvent;
+import com.nisovin.magicspells.spells.BuffSpell;
+import com.nisovin.magicspells.util.MagicConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
@@ -13,16 +15,14 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
-import com.nisovin.magicspells.MagicSpells;
-import com.nisovin.magicspells.events.SpellCastEvent;
-import com.nisovin.magicspells.spells.BuffSpell;
-import com.nisovin.magicspells.util.MagicConfig;
+import java.util.HashMap;
 
 public class InvisibilitySpell extends BuffSpell {
 
 	private boolean preventPickups;
 	private boolean cancelOnSpellCast;
-	
+	private boolean invisibleToPlayers;
+
 	private HashMap<String,CostCharger> invisibles = new HashMap<String, InvisibilitySpell.CostCharger>();
 	
 	public InvisibilitySpell(MagicConfig config, String spellName) {
@@ -30,6 +30,7 @@ public class InvisibilitySpell extends BuffSpell {
 		
 		preventPickups = getConfigBoolean("prevent-pickups", true);
 		cancelOnSpellCast = getConfigBoolean("cancel-on-spell-cast", false);
+		invisibleToPlayers = getConfigBoolean("invisible-to-players", true);
 	}
 	
 	@Override
@@ -58,8 +59,10 @@ public class InvisibilitySpell extends BuffSpell {
 	
 	private void makeInvisible(Player player) {
 		// make player invisible
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.hidePlayer(player);
+		if(invisibleToPlayers) {
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				p.hidePlayer(player);
+			}
 		}
 		// detarget monsters
 		Creature creature;

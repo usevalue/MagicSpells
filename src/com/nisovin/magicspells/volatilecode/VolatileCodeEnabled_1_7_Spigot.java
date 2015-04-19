@@ -3,6 +3,7 @@ package com.nisovin.magicspells.volatilecode;
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -641,6 +642,31 @@ public class VolatileCodeEnabled_1_7_Spigot implements VolatileCodeHandle {
 
 	@Override
 	public void resetEntityAttributes(LivingEntity entity) {
+		try {
+			EntityLiving e = ((CraftLivingEntity)entity).getHandle();
+			Field field = EntityLiving.class.getDeclaredField("d");
+			field.setAccessible(true);
+			field.set(e, null);
+			e.getAttributeMap();
+			Method method = null;
+			Class<?> clazz = e.getClass();
+			while (clazz != null) {
+				try {
+					method = clazz.getDeclaredMethod("aD");
+					break;
+				} catch (NoSuchMethodException e1) {
+				    clazz = clazz.getSuperclass();
+				}
+			}
+			if (method != null) {
+				method.setAccessible(true);
+				method.invoke(e);
+			} else {
+				throw new Exception("No method aD found on " + e.getClass().getName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

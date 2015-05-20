@@ -386,7 +386,7 @@ public class MagicSpells extends JavaPlugin {
 		// load in-game spell names, incantations, and initialize spells
 		log("Initializing spells...");
 		for (Spell spell : spells.values()) {
-			spellNames.put(spell.getName().toLowerCase(), spell);
+			spellNames.put(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', spell.getName().toLowerCase())), spell);
 			String[] aliases = spell.getAliases();
 			if (aliases != null && aliases.length > 0) {
 				for (String alias : aliases) {
@@ -561,6 +561,7 @@ public class MagicSpells extends JavaPlugin {
 		if (spellKeys == null) return;
 		for (String spellName : spellKeys) {
 			if (config.getBoolean("spells." + spellName + ".enabled", true)) {
+				long starttime = System.currentTimeMillis();
 				String className = "";
 				if (config.contains("spells." + spellName + ".spell-class")) {
 					className = config.getString("spells." + spellName + ".spell-class", "");
@@ -607,6 +608,8 @@ public class MagicSpells extends JavaPlugin {
 					error("Unable to load spell " + spellName + " (general error)");
 					e.printStackTrace();
 				}
+				long elapsed = System.currentTimeMillis() - starttime;
+				if (elapsed > 50) getLogger().warning("LONG SPELL LOAD TIME: " + spellName + ": " + elapsed + "ms");
 			}
 		}
 	}

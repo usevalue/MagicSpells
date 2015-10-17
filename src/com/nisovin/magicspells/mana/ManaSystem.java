@@ -149,7 +149,7 @@ public class ManaSystem extends ManaHandler {
 		return false;
 	}
 	
-	private ManaRank getRank(Player player) {
+	public ManaRank getRank(Player player) {
 		MagicSpells.debug(3, "Fetching mana rank for player " + player.getName() + "...");
 		for (ManaRank rank : ranks) {
 			MagicSpells.debug(3, "    checking rank " + rank.name);

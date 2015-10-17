@@ -102,6 +102,12 @@ public class SummonSpell extends TargetedSpell implements TargetedEntitySpell, T
 				// fail -- no player target
 				return noTarget(player);
 			}
+
+			if (getRange(power) > 0 && landLoc.toVector().distanceSquared(target.getLocation().toVector()) > getRange(power)*getRange(power)) {
+				// too far
+				sendMessage(player, "That person is too far away to summon!");
+				return PostCastAction.ALREADY_HANDLED;
+			}
 			
 			// teleport player
 			if (requireAcceptance) {
